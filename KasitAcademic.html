@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KASIT team || Academic Committee</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap');	
+
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --danger: #ef4444;
+            --danger-hover: #dc2626;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --highlight: #10b981;
+        }
+
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .landing-container {
+            max-width: 500px;
+            margin-top: 10vh;
+            text-align: center;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-family: inherit;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .form-control:focus { border-color: var(--primary); }
+
+        .bulk-add-container {
+            background: #eff6ff;
+            border: 1px dashed var(--primary);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        .bulk-add-container h3 { margin-top: 0; color: var(--primary); font-size: 1.1em; margin-bottom: 5px; }
+        .bulk-add-container p { font-size: 0.85em; color: var(--text-muted); margin-top: 0; margin-bottom: 12px; }
+        .bulk-textarea {
+            width: 100%; box-sizing: border-box; padding: 12px; border-radius: 8px;
+            border: 1px solid #cbd5e1; font-family: inherit; resize: vertical; margin-bottom: 12px;
+            outline: none; transition: border-color 0.2s;
+        }
+        .bulk-textarea:focus { border-color: var(--primary); }
+
+        .table-wrapper { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        th { background-color: var(--primary); color: white; font-weight: 600; text-align: center; }
+        tbody tr:hover { background-color: #f8fafc; }
+        
+        .sub-header { display: block; font-size: 0.75em; font-weight: 400; color: #e2e8f0; margin-top: 4px; }
+
+        #mainTableBody td:nth-child(7) input {
+            color: #991b1b;
+            font-weight: 600;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .input-row td { background-color: #eff6ff; }
+        input {
+            width: 100%; box-sizing: border-box; padding: 8px 10px; border: 1px solid #cbd5e1;
+            border-radius: 8px; font-family: inherit; font-size: 0.9em; transition: all 0.2s;
+        }
+        input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        
+        .inline-input { border-color: transparent; background-color: transparent; padding: 8px; }
+        .inline-input:hover { border-color: #e2e8f0; background-color: white; }
+        .inline-input:focus { background-color: white; border-color: var(--primary); }
+        
+        .currency-wrapper { display: flex; align-items: center; gap: 4px; }
+        .currency-label { color: var(--text-muted); font-size: 0.9em; font-weight: 500; }
+
+        .btn {
+            background-color: var(--primary); color: white; border: none; padding: 10px 16px;
+            border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; transition: background 0.2s;
+        }
+        .btn:hover { background-color: var(--primary-hover); }
+        .btn-auto { width: auto; padding: 10px 24px; }
+        
+        .btn-delete {
+            background-color: transparent; color: var(--danger); border: 1px solid var(--danger);
+            padding: 6px 10px; border-radius: 6px; cursor: pointer;
+        }
+        .btn-delete:hover { background-color: var(--danger); color: white; }
+
+        .btn-back {
+            position: absolute; top: 25px; left: 25px; width: auto; background-color: #e2e8f0; 
+            color: var(--text-main); font-size: 0.9em; padding: 8px 15px;
+        }
+        .btn-back:hover { background-color: #cbd5e1; }
+
+        .free-action-cell {
+            border: none !important; background: transparent !important;
+            padding: 0 15px !important; vertical-align: middle !important; width: 30px;
+        }
+        .delete-float-btn {
+            background-color: transparent; color: var(--danger); border: 1px solid var(--danger);
+            padding: 6px 8px; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-size: 0.9em;
+        }
+        .delete-float-btn:hover { background-color: var(--danger); color: white; box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2); }
+
+        .action-buttons { display: flex; gap: 15px; margin-top: 20px; }
+        .btn-print { background-color: var(--text-main); font-size: 1.1em; padding: 14px; flex: 1; margin: 0; }
+        .btn-print:hover { background-color: #334155; }
+        .btn-clear { background-color: var(--danger); font-size: 1.1em; padding: 14px; flex: 1; margin: 0; }
+        .btn-clear:hover { background-color: var(--danger-hover); }
+
+        .copies-control { display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .copies-number { font-weight: 700; color: var(--highlight); font-size: 1.1em; min-width: 24px; text-align: center; }
+        .btn-circle {
+            background-color: #e2e8f0; border: none; width: 28px; height: 28px; border-radius: 50%;
+            cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center;
+        }
+        .btn-circle:hover { background-color: #cbd5e1; }
+
+        .summary-container { width: 50%; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+        .summary-container th { background-color: var(--primary); color: white; font-size: 1.2em; padding: 16px; text-align: center; }
+        .summary-container td { font-weight: 500; }
+        .summary-container td:last-child { text-align: right; font-weight: 600; }
+        .net-profit { color: var(--highlight); font-size: 1.1em; }
+
+        .comprehensive-notes-container { margin-top: 40px; padding: 25px; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; }
+        .main-notes-title { text-align: center; background-color: #e2e8f0; color: var(--text-main); padding: 15px; border-radius: 8px; margin-top: 0; margin-bottom: 30px; border: 1px solid #cbd5e1; }
+        .notes-section { width: 100%; }
+        .section-subtitle { text-align: right; color: var(--primary); margin-bottom: 15px; margin-top: 0; }
+        
+        .add-note-form { display: flex; gap: 10px; margin-bottom: 20px; align-items: flex-start; direction: rtl; }
+        .add-note-form textarea { flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; resize: vertical; min-height: 45px; }
+        .add-note-form textarea:focus { border-color: var(--primary); outline: none; }
+        
+        .problems-table { width: 100%; border-collapse: collapse; text-align: right; direction: rtl; }
+        .problems-table th, .problems-table td { border: 1px solid var(--border); padding: 12px; vertical-align: top; }
+        .problems-table th { background-color: #f1f5f9; color: var(--text-main); font-weight: 600; }
+        
+        .notes-list { direction: rtl; text-align: right; padding-right: 20px; margin: 0; }
+        .notes-list li { margin-bottom: 15px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; }
+        
+        .editable-div { min-height: 24px; padding: 6px; border: 1px solid transparent; border-radius: 6px; transition: all 0.2s; white-space: pre-wrap; word-wrap: break-word; }
+        .editable-div:hover { border-color: #cbd5e1; background-color: white; cursor: text; }
+        .editable-div:focus { border-color: var(--primary); background-color: white; outline: none; }
+        .action-group { display: flex; gap: 8px; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; padding: 0; max-width: 100%; }
+            .no-print { display: none !important; }
+            
+            th { color: white !important; background-color: var(--primary) !important; white-space: normal; }
+            .sub-header { color: #e2e8f0 !important; }
+            tbody tr:nth-child(even) { background-color: #f8fafc !important; }
+            
+            .summary-container { width: 100%; }
+            .page-break { page-break-before: always; margin-top: 30px; }
+            .table-wrapper { border: none; margin-bottom: 20px;}
+            table, th, td { border-collapse: collapse; }
+            input { border: none !important; background: transparent !important; padding: 0 !important; font-weight: normal; color: black; box-shadow: none !important; }
+            
+            .col-num { width: 5%; }
+            .col-copies { width: 8%; text-align: center; }
+            .col-name { width: 35%; }
+            .col-pages { width: 8%; }
+            .col-cost { width: 10%; }
+            .col-sell { width: 10%; }
+            .col-note { width: 24%; }
+            .print-only { display: block !important; text-align: center; }
+
+            .comprehensive-notes-container { border: none; background: transparent; padding: 0; page-break-inside: avoid; margin-top: 40px; }
+            .main-notes-title { background-color: #e2e8f0 !important; border: 1px solid #000; color: black; }
+            .problems-table, .problems-table th, .problems-table td { border: 1px solid #000; }
+            .notes-list li { border-bottom: 1px solid #000; }
+            .editable-div { border: none !important; padding: 0; background: transparent !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="landingView" class="container landing-container">
+    <h1>KASIT team</h1>
+    <h2>بازار الأكاديمي</h2>
+    
+    <div class="form-group">
+        <label>السنة الدراسية:</label>
+        <input type="text" id="yearInput" class="form-control" placeholder="مثال: 2026" value="2026">
+    </div>
+
+    <div class="form-group">
+        <label>الفصل الدراسي:</label>
+        <select id="semesterInput" class="form-control">
+            <option value="الأول">الفصل الأول</option>
+            <option value="الثاني" selected>الفصل الثاني</option>
+            <option value="الصيفي">الفصل الصيفي</option>
+        </select>
+    </div>
+
+    <button class="btn" onclick="startSession()" style="margin-top: 10px; font-size: 1.1em; padding: 12px;">دخول</button>
+</div>
+
+<div id="dashboardView" class="container" style="display: none;">
+    <button class="btn btn-back no-print" onclick="goBack()">🔙 العودة للرئيسية</button>
+    
+    <h1>KASIT team</h1>
+    <h2 id="mainHeader">تقرير بازار الأكاديمي</h2>
+
+    <div class="bulk-add-container no-print">
+        <h3>Add Notebooks (Quick Add) 📥</h3>
+        <p>Paste or type a list of notebook names (each name on a new line):</p>
+        <textarea id="bulkNames" class="bulk-textarea" rows="4"></textarea>
+        <button class="btn btn-auto" onclick="addBulkNotebooks()">Add List to Table</button>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-num">#</th>
+                    <th class="col-copies"># of Copies</th>
+                    <th class="col-name">Notebook</th>
+                    <th class="col-pages"># of Pages<span class="sub-header">(for 1 copy)</span></th>
+                    <th class="col-cost">Cost Price<span class="sub-header">(for 1 copy)</span></th>
+                    <th class="col-sell">Selling Price<span class="sub-header">(for 1 copy)</span></th>
+                    <th class="col-note">Note?</th>
+                    <th class="no-print">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="mainTableBody">
+            </tbody>
+            <tfoot class="input-row no-print">
+                <tr>
+                    <td style="text-align: center; font-weight: bold;">+</td>
+                    <td style="color: var(--text-muted); font-size: 0.9em; text-align: center;">0 (Default)</td>
+                    <td><input type="text" id="nbName" placeholder="Notebook Name"></td>
+                    <td><input type="number" id="nbPages" placeholder="Pages" min="1"></td>
+                    <td>
+                        <div class="currency-wrapper">
+                            <input type="number" id="nbCost" placeholder="0.00" step="0.01" min="0">
+                            <span class="currency-label">jd</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="currency-wrapper">
+                            <input type="number" id="nbSell" placeholder="0.00" step="0.01" min="0">
+                            <span class="currency-label">jd</span>
+                        </div>
+                    </td>
+                    <td><input type="text" id="nbNote" placeholder="Optional notes..."></td>
+                    <td><button class="btn" onclick="addNotebook()">Add Single</button></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="summary-container page-break">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2" id="summaryHeader">Summary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Total Pages</td><td id="sumPages">0</td></tr>
+                <tr><td>Total Copies</td><td id="sumCopies">0</td></tr>
+                <tr><td>Total Cost Price</td><td id="sumCost">0.00 jd</td></tr>
+                <tr><td>Total Selling Price</td><td id="sumSell">0.00 jd</td></tr>
+                <tr style="background-color: #f0fdf4;">
+                    <td style="font-weight: 700;">Net Profit</td>
+                    <td class="net-profit" id="netProfit">0.00 jd</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="comprehensive-notes-container">
+        <h2 class="main-notes-title">: الملاحظات</h2>
+
+        <div class="notes-section">
+            <h3 class="section-subtitle">المشاكل والحلول</h3>
+            <div class="add-note-form no-print">
+                <textarea id="newProblemInput" placeholder="اكتب المشكلة..." rows="2" dir="rtl"></textarea>
+                <textarea id="newSolutionInput" placeholder="اكتب الحل..." rows="2" dir="rtl"></textarea>
+                <button class="btn btn-auto" onclick="addProblem()">إضافة ➕</button>
+            </div>
+            <table class="problems-table" dir="rtl">
+                <thead>
+                    <tr>
+                        <th style="width: 50%;">المشكلة</th>
+                        <th style="width: 50%;">الحل</th>
+                    </tr>
+                </thead>
+                <tbody id="problemsTableBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="notes-section" style="margin-top: 40px;">
+            <h3 class="section-subtitle">ملاحظات/اقتراحات عامة</h3>
+            <div class="add-note-form no-print">
+                <textarea id="newNoteInput" placeholder="اكتب ملاحظة عامة جديدة هنا..." rows="2" dir="rtl"></textarea>
+                <button class="btn btn-auto" onclick="addGeneralNote()">إضافة ➕</button>
+            </div>
+            <ul id="notesList" class="notes-list">
+            </ul>
+        </div>
+    </div>
+    
+    <div class="action-buttons no-print">
+        <button class="btn btn-print" onclick="window.print()">Print Report 🖨️</button>
+        <button class="btn btn-clear" onclick="clearAllData()">Clear All Data 🗑️</button>
+    </div>
+</div>
+
+<script>
+    // System Variables
+    let currentYear = "";
+    let currentSemester = "";
+    
+    // Data Arrays
+    let notebooks = [];
+    let problemsArray = [];
+    let notesArray = [];
+
+    // View Management
+    function startSession() {
+        currentYear = document.getElementById('yearInput').value.trim() || "2026";
+        currentSemester = document.getElementById('semesterInput').value;
+        
+        document.getElementById('mainHeader').innerText = `تقرير بازار الأكاديمي || الفصل ${currentSemester} ${currentYear}`;
+        document.getElementById('summaryHeader').innerHTML = `Summary<br>بازار الأكاديمي | الفصل ${currentSemester} ${currentYear}`;
+        
+        document.getElementById('landingView').style.display = 'none';
+        document.getElementById('dashboardView').style.display = 'block';
+        
+        loadData();
+    }
+
+    function goBack() {
+        document.getElementById('landingView').style.display = 'block';
+        document.getElementById('dashboardView').style.display = 'none';
+    }
+
+    // Storage Key Generator (Preserves "2026 Second Semester" legacy data)
+    function getStorageKey(baseKey) {
+        if (currentYear === "2026" && currentSemester === "الثاني") {
+            return baseKey;
+        }
+        return baseKey + "_" + currentYear + "_" + currentSemester;
+    }
+
+    // --- Cloud API Integration ---
+    const CLOUD_API_URL = "https://script.google.com/macros/s/AKfycbyKyRvnLrvOqT8TaJdgEBAToo0K3-dPT5KEYhRC2Ona_IxFXozBRasYdoGh6opNRXLV/exec";
+
+    async function loadData() {
+        const localSavedNotebooks = localStorage.getItem(getStorageKey('kasit_notebooks'));
+        let localNotebooks = localSavedNotebooks ? JSON.parse(localSavedNotebooks) : [];
+        
+        const localSavedProblems = localStorage.getItem(getStorageKey('kasit_problems_array'));
+        let localProblems = localSavedProblems ? JSON.parse(localSavedProblems) : [];
+        
+        const localSavedNotes = localStorage.getItem(getStorageKey('kasit_notes_array'));
+        let localNotes = localSavedNotes ? JSON.parse(localSavedNotes) : [];
+
+        try {
+            const response = await fetch(CLOUD_API_URL, { redirect: "follow" });
+            const data = await response.json();
+            
+            let cloudNotebooks = data.notebooks || [];
+            let cloudProblems = data.problems || [];
+            let cloudNotes = data.notes || [];
+
+            if (cloudNotebooks.length === 0 && localNotebooks.length > 0) {
+                notebooks = localNotebooks;
+                problemsArray = localProblems;
+                notesArray = localNotes;
+                syncToCloud(); 
+            } else {
+                notebooks = cloudNotebooks;
+                problemsArray = cloudProblems;
+                notesArray = cloudNotes;
+                localStorage.setItem(getStorageKey('kasit_notebooks'), JSON.stringify(notebooks));
+                localStorage.setItem(getStorageKey('kasit_problems_array'), JSON.stringify(problemsArray));
+                localStorage.setItem(getStorageKey('kasit_notes_array'), JSON.stringify(notesArray));
+            }
+            
+        } catch (error) {
+            console.log("Offline mode: Loading from local storage", error);
+            notebooks = localNotebooks;
+            problemsArray = localProblems;
+            notesArray = localNotes;
+        }
+        
+        updateUI();
+        updateNotesUI(); 
+    }
+	
+
+    window.addEventListener('beforeprint', () => {
+        notebooks.sort((a, b) => b.copies - a.copies);
+        updateUI();
+        saveData(); 
+    });
+
+    document.getElementById('nbPages').addEventListener('input', function() {
+        let pages = parseInt(this.value);
+        if(!isNaN(pages)) {
+            document.getElementById('nbCost').value = (pages * 0.01).toFixed(2);
+        } else {
+            document.getElementById('nbCost').value = '';
+        }
+    });
+
+    function formatJD(amount) {
+        return parseFloat(amount).toFixed(2) + ' jd';
+    }
+
+    function addBulkNotebooks() {
+        const text = document.getElementById('bulkNames').value;
+        if (!text.trim()) return;
+
+        const names = text.split('\n');
+        names.forEach(name => {
+            const trimmedName = name.trim();
+            if (trimmedName) {
+                notebooks.push({ name: trimmedName, pages: '', cost: 0, sell: 0, note: '', copies: 0 });
+            }
+        });
+
+        document.getElementById('bulkNames').value = '';
+        updateUI(); saveData();
+    }
+
+    function addNotebook() {
+        const name = document.getElementById('nbName').value;
+        const pages = parseInt(document.getElementById('nbPages').value);
+        const cost = parseFloat(document.getElementById('nbCost').value);
+        const sell = parseFloat(document.getElementById('nbSell').value);
+        const note = document.getElementById('nbNote').value;
+
+        if (!name) return alert('Notebook Name is required!');
+
+        notebooks.push({
+            name: name, pages: isNaN(pages) ? '' : pages, cost: isNaN(cost) ? 0 : cost,
+            sell: isNaN(sell) ? 0 : sell, note: note, copies: 0 
+        });
+
+        document.getElementById('nbName').value = '';
+        document.getElementById('nbPages').value = '';
+        document.getElementById('nbCost').value = '';
+        document.getElementById('nbSell').value = '';
+        document.getElementById('nbNote').value = '';
+
+        updateUI(); saveData(); 
+    }
+
+    function changeCopies(index, delta) {
+        if (notebooks[index].copies + delta >= 0) {
+            notebooks[index].copies += delta;
+            updateUI(); saveData(); 
+        }
+    }
+
+    function updateRecord(index, field, value) {
+        if (field === 'pages') {
+            let pages = parseInt(value);
+            notebooks[index].pages = isNaN(pages) ? '' : pages;
+            notebooks[index].cost = isNaN(pages) ? 0 : pages * 0.01; 
+        } else if (field === 'cost' || field === 'sell') {
+            notebooks[index][field] = parseFloat(value) || 0;
+        } else {
+            notebooks[index][field] = value;
+        }
+        updateUI(); saveData(); 
+    }
+
+    function deleteNotebook(index) {
+        if(confirm("Are you sure you want to delete this notebook?")) {
+            notebooks.splice(index, 1);
+            updateUI(); saveData(); 
+        }
+    }
+
+    function clearAllData() {
+        if (notebooks.length === 0) return alert("The table is already empty!");
+        if(confirm("⚠️ WARNING: Are you sure you want to delete ALL notebooks for this semester?\nThis action cannot be undone!")) {
+            notebooks = []; updateUI(); saveData(); 
+        }
+    }
+
+    function updateUI() {
+        const tbody = document.getElementById('mainTableBody');
+        tbody.innerHTML = '';
+
+        let totalCopies = 0, totalPages = 0, totalCost = 0, totalSell = 0;
+
+        notebooks.forEach((nb, index) => {
+            let parsedPages = parseInt(nb.pages) || 0;
+            totalCopies += nb.copies; totalPages += (parsedPages * nb.copies);
+            totalCost += (nb.cost * nb.copies); totalSell += (nb.sell * nb.copies);
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td style="text-align: center;">${index + 1}</td>
+                <td>
+                    <div class="copies-control no-print">
+                        <button class="btn-circle" onclick="changeCopies(${index}, -1)">-</button>
+                        <span class="copies-number">${nb.copies}</span>
+                        <button class="btn-circle" onclick="changeCopies(${index}, 1)">+</button>
+                    </div>
+                    <span class="copies-number print-only" style="display: none;">${nb.copies}</span>
+                </td>
+                <td><input type="text" class="inline-input" value="${nb.name}" onchange="updateRecord(${index}, 'name', this.value)"></td>
+                <td><input type="number" class="inline-input" value="${nb.pages}" min="1" placeholder="-" onchange="updateRecord(${index}, 'pages', this.value)"></td>
+                <td>
+                    <div class="currency-wrapper">
+                        <input type="number" class="inline-input" value="${nb.cost > 0 ? nb.cost.toFixed(2) : ''}" placeholder="0.00" step="0.01" min="0" onchange="updateRecord(${index}, 'cost', this.value)">
+                        <span class="currency-label">jd</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="currency-wrapper">
+                        <input type="number" class="inline-input" value="${nb.sell > 0 ? nb.sell.toFixed(2) : ''}" placeholder="0.00" step="0.01" min="0" onchange="updateRecord(${index}, 'sell', this.value)">
+                        <span class="currency-label">jd</span>
+                    </div>
+                </td>
+                <td><input type="text" class="inline-input" value="${nb.note || ''}" placeholder="-" onchange="updateRecord(${index}, 'note', this.value)"></td>
+                <td class="no-print" style="text-align: center;"><button class="btn-delete" onclick="deleteNotebook(${index})">🗑️</button></td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        document.getElementById('sumPages').innerText = totalPages;
+        document.getElementById('sumCopies').innerText = totalCopies;
+        document.getElementById('sumCost').innerText = formatJD(totalCost);
+        document.getElementById('sumSell').innerText = formatJD(totalSell);
+        document.getElementById('netProfit').innerText = formatJD(totalSell - totalCost);
+    }
+
+    function addProblem() {
+        const pInput = document.getElementById('newProblemInput');
+        const sInput = document.getElementById('newSolutionInput');
+        if (pInput.value.trim() !== '' || sInput.value.trim() !== '') {
+            problemsArray.push({ problem: pInput.value.trim(), solution: sInput.value.trim() });
+            pInput.value = ''; sInput.value = '';
+            updateNotesUI(); saveNotesData();
+        }
+    }
+
+    function addGeneralNote() {
+        const input = document.getElementById('newNoteInput');
+        if (input.value.trim() !== '') {
+            notesArray.push(input.value.trim());
+            input.value = '';
+            updateNotesUI(); saveNotesData();
+        }
+    }
+
+    function updateProblemRecord(index, field, value) { problemsArray[index][field] = value; saveNotesData(); }
+    function updateGeneralNoteRecord(index, value) { notesArray[index] = value; saveNotesData(); }
+    function deleteProblem(index) { problemsArray.splice(index, 1); updateNotesUI(); saveNotesData(); }
+    function deleteGeneralNote(index) { notesArray.splice(index, 1); updateNotesUI(); saveNotesData(); }
+
+    function updateNotesUI() {
+        const tbody = document.getElementById('problemsTableBody');
+        tbody.innerHTML = '';
+        problemsArray.forEach((item, index) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><div class="editable-div" contenteditable="true" onblur="updateProblemRecord(${index}, 'problem', this.innerText)">${item.problem}</div></td>
+                <td><div class="editable-div" contenteditable="true" onblur="updateProblemRecord(${index}, 'solution', this.innerText)">${item.solution}</div></td>
+                <td class="no-print free-action-cell"><button class="delete-float-btn" onclick="deleteProblem(${index})" title="Delete">🗑️</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        const list = document.getElementById('notesList');
+        list.innerHTML = '';
+        notesArray.forEach((note, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <div style="flex: 1; width: 100%;"><div class="editable-div" contenteditable="true" onblur="updateGeneralNoteRecord(${index}, this.innerText)">${note}</div></div>
+                <div class="no-print action-group"><button class="btn-delete" onclick="deleteGeneralNote(${index})" title="Delete">🗑️</button></div>
+            `;
+            list.appendChild(li);
+        });
+    }
+</script>
+
+</body>
+</html>
